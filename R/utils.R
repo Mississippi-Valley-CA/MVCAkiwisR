@@ -1,33 +1,3 @@
-#' Hub selection handling
-#' @noRd
-#' @description Checks input against defaults
-#' @keywords internal
-check_hub <- function(hub) {
-  # Identify default hubs
-  default_hubs <- list(
-    "kisters" = "http://kiwis.kisters.de/KiWIS/KiWIS?",
-    "swmc" = "https://www.swmc.mnr.gov.on.ca/KiWIS/KiWIS?",
-    "quinte" = "http://waterdata.quinteconservation.ca/KiWIS/KiWIS?"
-  )
-
-  # Hub selection
-  if (!is.character(hub) | nchar(hub) == 0) {
-    stop(
-      "`hub` argument must be a character- either a URL or one of the following defaults: ",
-      paste(c("", names(default_hubs)), collapse = "\n"),
-      "See https://github.com/rywhale/kiwisR for more information."
-      )
-  }
-
-  if (!hub %in% names(default_hubs)) {
-    # Non-default KiWIS URL
-    api_url <- hub
-  }else{
-    api_url <- default_hubs[[which(names(default_hubs) == hub)]]
-  }
-  return(api_url)
-}
-
 #' User provided date string checking
 #' @noRd
 #' @description Checks user provided date strings to ensure they can be cast to yyyy-mm-dd
@@ -64,11 +34,11 @@ has_internet <- function(){
   !inherits(z, "try-error")
 }
 
-#' Checking if example hub is live before running tests
+#' Checking if Quinte is live before running tests
 #' @noRd
-#' @description Checks if connection to KiWIS example hub can be made.
+#' @description Checks if connection to KiWIS Quinte can be made.
 #' @keywords internal
-exp_live <- function(exp_hub){
+exp_live <- function(){
   exp_hub_url <- paste0(
     "http://waterdata.quinteconservation.ca/KiWIS/KiWIS?",
     "datasource=0&service=kisters&type=queryServices&request=getstationlist&format=json"
@@ -101,6 +71,6 @@ check_ki_response <- function(response){
 
   # Check for timeout / 404
   if(!inherits(response, "response")){
-    stop("Check that KiWIS hub is accessible via a web browser.")
+    stop("Check that Quinte KiWIS is accessible via a web browser.")
   }
 }
