@@ -2,27 +2,24 @@
 #'
 #' @export
 #' @description Returns time series values for given time series id and date range.
-#' @param hub The KiWIS database you are querying. Either one of the defaults or a URL.
-#'  See \href{https://github.com/rywhale/kiwisR}{README}.
 #' @param ts_id Either: a single time series id or a vector of time series ids.
 #'  Time series ids can be found using the `ki_timeseries_list` function.
 #' @param start_date A date string formatted "YYYY-MM-DD". Defaults to yesterday.
 #' @param end_date A date string formatted "YYYY-MM-DD". Defaults to today.
-#' @param return_fields (Optional) Specific fields to return. Consult your KiWIS hub services documentation for available options.
+#' @param return_fields (Optional) Specific fields to return. Consult your KiWIS services documentation for available options.
 #' Should be a comma separate string or a vector.
 #' @param datasource (Optional) The data source to be used, defaults to 0.
 #' @return A tibble with following columns by default: Timestamp, Value, ts_name, Units, station_name
 #' @examples
 #' \dontrun{
 #' ki_timeseries_values(
-#'   hub = "swmc",
 #'   ts_id = "1125831042",
 #'   start_date = "2015-12-01",
 #'   end_date = "2018-01-01"
 #' )
 #' }
 #'
-ki_timeseries_values <- function(hub, ts_id, start_date, end_date, 
+ki_timeseries_values <- function(ts_id, start_date, end_date, 
                                  return_fields, datasource = 0) {
 
   # Default to past 24 hours
@@ -45,9 +42,6 @@ ki_timeseries_values <- function(hub, ts_id, start_date, end_date,
     }
     return_fields <- c("Timestamp", "Value", return_fields)
   }
-
-  # Identify hub
-  api_url <- check_hub(hub)
 
   if (missing(ts_id)) {
     stop("Please enter a valid ts_id.")
@@ -90,7 +84,7 @@ ki_timeseries_values <- function(hub, ts_id, start_date, end_date,
   # Send request
   raw <- tryCatch({
     httr::GET(
-      url = api_url,
+      url = "http://waterdata.quinteconservation.ca/KiWIS/KiWIS?",
       query = api_query,
       httr::timeout(60)
     )

@@ -1,27 +1,24 @@
-#' Get list of available time series for station or
-#' list of stations.
+#' Get list of available time series for station or list of stations.
 #'
 #' @export
-#' @param hub The KiWIS database you are querying. Either one of the defaults or a URL.
-#'  See \href{https://github.com/rywhale/kiwisR}{README}.
 #' @param station_id Either a single station id or a vector of station ids. Can be string or numeric.
 #' Station ids can be found using the ki_station_list function.
 #' @param ts_name (Optional) A specific time series short name to search for. Supports the use of "*" as a wildcard.
 #' @param coverage (Optional) Whether or not to return period of record columns.
 #' Defaults to TRUE, change to FALSE for faster queries.
 #' @param group_id (Optional) A time series group id (see ki_group_list).
-#' @param return_fields (Optional) Specific fields to return. Consult your KiWIS hub services documentation for available options.
+#' @param return_fields (Optional) Specific fields to return. Consult your KiWIS services documentation for available options.
 #' Should be a comma separate string or a vector.
 #' @param datasource (Optional) The data source to be used, defaults to 0.
 #' @return A tibble containing all available time series for selected stations.
 #' @examples
 #' \dontrun{
-#' ki_timeseries_list(hub = "swmc", station_id = "146775")
-#' ki_timeseries_list(hub = "swmc", ts_name = "Vel*")
+#' ki_timeseries_list(station_id = "146775")
+#' ki_timeseries_list(ts_name = "Vel*")
 #'}
 #'
 
-ki_timeseries_list <- function(hub, station_id, ts_name, coverage = TRUE, group_id, 
+ki_timeseries_list <- function(station_id, ts_name, coverage = TRUE, group_id, 
                                return_fields, datasource = 0) {
   # Check for no input
   if (missing(station_id) & missing(ts_name) & missing(group_id)) {
@@ -48,9 +45,6 @@ ki_timeseries_list <- function(hub, station_id, ts_name, coverage = TRUE, group_
       )
     }
   }
-
-  # Identify hub
-  api_url <- check_hub(hub)
 
   api_query <- list(
     service = "kisters",
@@ -93,7 +87,7 @@ ki_timeseries_list <- function(hub, station_id, ts_name, coverage = TRUE, group_
   # Send request
   raw <- tryCatch({
     httr::GET(
-      url = api_url,
+      url = "http://waterdata.quinteconservation.ca/KiWIS/KiWIS?",
       query = api_query,
       httr::timeout(180)
     )}, error = function(e){

@@ -70,7 +70,7 @@ has_internet <- function(){
 #' @keywords internal
 exp_live <- function(exp_hub){
   exp_hub_url <- paste0(
-    check_hub(exp_hub),
+    "http://waterdata.quinteconservation.ca/KiWIS/KiWIS?",
     "datasource=0&service=kisters&type=queryServices&request=getstationlist&format=json"
   )
 
