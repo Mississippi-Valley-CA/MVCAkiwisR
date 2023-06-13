@@ -1,2 +1,6 @@
 ^mvcaWISKI\.Rproj$
 ^\.Rproj\.user$
+^\.travis\.yml$
+^.*\.Rproj$
+^README\.Rmd$
+^\.github$

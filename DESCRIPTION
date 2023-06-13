@@ -1,12 +1,33 @@
 Package: mvcaWISKI
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Title: A Wrapper for Querying the MVCA's 'WISKI' Databases via the 'KiWIS' API
+Version: 0.0.1
+Authors@R: c(
+    person("Daniel", "Post", role = c("cre"), email = "dpost@mvc.on.ca"),
+    person("Ryan", "Whaley", role = c("aut"), email = "rdgwhaley@gmail.com"),
+    person("Sam", "Albers", role = "ctb", email = "sam.albers@gov.bc.ca"),
+  )
+Description: A wrapper for querying 'WISKI' databases via the 'KiWIS' 'REST' API. 'WISKI' is an 'SQL' relational database 
+  used for the collection and storage of water data developed by KISTERS and 'KiWIS' is a 'REST' service that provides
+  access to 'WISKI' databases via HTTP requests (<https://water.kisters.de/en/technology-trends/kisters-and-open-data/>). 
+  Contains a list of default databases (called 'hubs') and also allows users to provide their own 'KiWIS' URL. 
+  Supports the entire query process- from metadata to specific time series values. All data is returned as tidy tibbles.
+License: MIT + file LICENSE
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+URL: https://mvc.on.ca
+Depends: 
+  R (>= 3.2.0)
+Imports: 
+    tibble,
+    jsonlite,
+    lubridate,
+    httr,
+    dplyr,
+    purrr
+Suggests:
+  ggplot2,
+  knitr,
+  rmarkdown,
+  testthat
