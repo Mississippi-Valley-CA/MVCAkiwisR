@@ -1,6 +1,5 @@
-^mvcaWISKI\.Rproj$
-^\.Rproj\.user$
 ^\.travis\.yml$
 ^.*\.Rproj$
+^\.Rproj\.user$
 ^README\.Rmd$
 ^\.github$

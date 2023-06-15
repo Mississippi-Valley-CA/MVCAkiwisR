@@ -12,12 +12,12 @@ Description: A wrapper for querying 'WISKI' databases via the 'KiWIS' 'REST' API
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 URL: https://mvc.on.ca
 Depends: 
   R (>= 3.2.0)
 Imports: 
+    data.table,
     tibble,
     jsonlite,
     lubridate,
@@ -27,4 +27,5 @@ Imports:
 Suggests:
   ggplot2,
   knitr,
-  rmarkdown
+  rmarkdown,
+  testthat

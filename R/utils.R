@@ -29,7 +29,7 @@ check_date <- function(start_date, end_date){
 #' @keywords internal
 has_internet <- function(){
   z <- try(suppressWarnings(
-    readLines('https://www.google.ca', n = 1)
+    readLines('https://www.google.com', n = 1)
     ), silent = TRUE)
   !inherits(z, "try-error")
 }
@@ -39,15 +39,12 @@ has_internet <- function(){
 #' @description Checks if connection to KiWIS Quinte can be made.
 #' @keywords internal
 exp_live <- function(){
-  exp_hub_url <- paste0(
-    "http://waterdata.quinteconservation.ca/KiWIS/KiWIS?",
-    "datasource=0&service=kisters&type=queryServices&request=getstationlist&format=json"
-  )
+  exp_url <- "http://waterdata.quinteconservation.ca/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getstationlist&format=json"
 
   raw <- tryCatch(
     {
       httr::GET(
-        exp_hub_url,
+        exp_url,
         httr::timeout(15)
       )
     },

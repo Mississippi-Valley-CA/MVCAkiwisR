@@ -1,9 +1,7 @@
-#' @title mvcaWISKI: A wrapper for querying KISTERS WISKI Databases via the KiWIS API
-#' @description mvcaWISKI provides a simplified method for retrieving tidy data from KISTERS WISKI databases via KiWIS API.
+#' @title mvcaWISKI: A wrapper for querying the MVCA's WISKI Databases via the KiWIS API
+#' @description mvcaWISKI provides a simplified method for retrieving tidy data from the MVCA WISKI databases via KiWIS API.
 #' @details A suggested workflow for using this package:
 #' \itemize{
-#'  \item Get station metadata using \code{ki_station_list()}
-#'  \item Get time series metadata using \code{ki_timeseries_list()}
 #'  \item Get time series data using \code{ki_timeseries_values()}
 #' }
 "_PACKAGE"

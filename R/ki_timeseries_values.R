@@ -19,9 +19,7 @@
 #' )
 #' }
 #'
-ki_timeseries_values <- function(ts_id, start_date, end_date, 
-                                 return_fields, datasource = 0) {
-
+ki_timeseries_values <- function(ts_id, start_date, end_date, return_fields, datasource = 0) {
   # Default to past 24 hours
   if (missing(start_date) || missing(end_date)) {
     message("No start or end date provided, trying to return data for past 24 hours")
