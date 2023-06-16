@@ -11,7 +11,7 @@
 #' @examples
 #' \dontrun{
 #' ki_timeseries_values(
-#'   ts_id = "1125831042",
+#'   ts_id = "1395042",
 #'   start_date = "2015-12-01",
 #'   end_date = "2018-01-01"
 #' )
@@ -35,13 +35,12 @@ ki_timeseries_values <- function(ts_id, start_date, end_date) {
   }
 
   api_query <- list(
-    service = "kisters",
+    format = "json",
     datasource = 0,
+    timezone = "EST",
+    service = "kisters",
     type = "queryServices",
     request = "getTimeseriesValues",
-    format = "json",
-    timezone= "EST",
-    kvp = "true",
     ts_id = ts_id_string,
     from = start_date,
     to = end_date,
@@ -93,14 +92,14 @@ ki_timeseries_values <- function(ts_id, start_date, end_date) {
 
       dplyr::mutate(
         ts_data,
-        Timestamp = lubridate::ymd_hms(ts_data$Timestamp),
+        Timestamp = as.POSIXct(ts_data$Timestamp, format="%Y-%m-%dT%H:%M"),
         Value = as.numeric(ts_data$Value),
         Units = json_content$ts_unitsymbol[[ts_chunk]],
-        "Station Name" = json_content$station_name[[ts_chunk]],
-        "Parameter Name" = json_content$stationparameter_name[[ts_chunk]],
-        "Parameter Type" = json_content$parametertype_name[[ts_chunk]],
-        "Timeseries" = json_content$ts_name[[ts_chunk]],
-        "TS ID" = json_content$ts_id[[ts_chunk]],
+        'Station Name' = json_content$station_name[[ts_chunk]],
+        'Parameter Name' = json_content$stationparameter_name[[ts_chunk]],
+        'Parameter Type' = json_content$parametertype_name[[ts_chunk]],
+        Timeseries = json_content$ts_name[[ts_chunk]],
+        'TS ID' = json_content$ts_id[[ts_chunk]],
       )
     }
   )

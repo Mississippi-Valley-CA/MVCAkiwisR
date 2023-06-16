@@ -1,6 +1,7 @@
 ## Document ####################################################################
 devtools::document()
 usethis::use_tidy_description()
+
 ## Clean up ####################################################################
 
 ## Clear environment
@@ -13,10 +14,10 @@ dev.off()  # Only if there IS a plot
 cat("\014")  # ctrl+L
 
 ## Testing #####################################################################
-ki_timeseries_values(
+test_values <- ki_timeseries_values(
 ts_id = "36587042",
-start_date = "2015-12-01",
-end_date = "2018-01-01"
+start_date = "2022-01-01",
+end_date = "2023-06-16"
 )
 
 values <- get_timeseries_values()
