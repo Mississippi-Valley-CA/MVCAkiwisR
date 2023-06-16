@@ -1,3 +1,6 @@
+## Document ####################################################################
+devtools::document()
+
 ## Clean up ####################################################################
 
 ## Clear environment
@@ -49,3 +52,6 @@ values <- ki_timeseries_values(
   end_date = endDate
 )
 
+## Testing #####################################################################
+values <- get_timeseries_values()
+values

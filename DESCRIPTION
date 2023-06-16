@@ -17,9 +17,6 @@ URL: https://mvc.on.ca
 Depends: 
   R (>= 3.2.0)
 Imports: 
-    rapidjsonr,
-    jsonify,
-    daterangepicker,
     tibble,
     jsonlite,
     lubridate,
