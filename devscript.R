@@ -13,5 +13,11 @@ dev.off()  # Only if there IS a plot
 cat("\014")  # ctrl+L
 
 ## Testing #####################################################################
+ki_timeseries_values(
+ts_id = "36587042",
+start_date = "2015-12-01",
+end_date = "2018-01-01"
+)
+
 values <- get_timeseries_values()
 values

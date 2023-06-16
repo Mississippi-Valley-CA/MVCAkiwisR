@@ -2,14 +2,12 @@
 #'
 #' @export
 #' @description Returns time series values for given time series id and date range.
+#' @author Ryan Whaley, \email{rdgwhaley@@gmail.com}
 #' @param ts_id Either: a single time series id or a vector of time series ids.
 #'  Time series ids can be found using the `ki_timeseries_list` function.
 #' @param start_date A date string formatted "YYYY-MM-DD". Defaults to yesterday.
 #' @param end_date A date string formatted "YYYY-MM-DD". Defaults to today.
-#' @param return_fields (Optional) Specific fields to return. Consult your KiWIS services documentation for available options.
-#' Should be a comma separate string or a vector.
-#' @param datasource (Optional) The data source to be used, defaults to 0.
-#' @return A tibble with following columns by default: Timestamp, Value, ts_name, Units, station_name
+#' @return A tibble with following columns by default: Timestamp, Value, Units, station_name, stationparameter_name, ts_name, ts_id
 #' @examples
 #' \dontrun{
 #' ki_timeseries_values(
@@ -19,7 +17,7 @@
 #' )
 #' }
 #'
-ki_timeseries_values <- function(ts_id, start_date, end_date, return_fields, datasource = 0) {
+ki_timeseries_values <- function(ts_id, start_date, end_date) {
   # Default to past 24 hours
   if (missing(start_date) || missing(end_date)) {
     message("No start or end date provided, trying to return data for past 24 hours")
@@ -29,18 +27,6 @@ ki_timeseries_values <- function(ts_id, start_date, end_date, return_fields, dat
     check_date(start_date, end_date)
   }
 
-  # Account for user-provided return fields
-  if (missing(return_fields)) {
-    return_fields <- "Timestamp,Value"
-  } else {
-    if(!inherits(return_fields, "character")){
-      stop(
-        "User supplied return_fields must be comma separated string or vector of strings"
-      )
-    }
-    return_fields <- c("Timestamp", "Value", return_fields)
-  }
-
   if (missing(ts_id)) {
     stop("Please enter a valid ts_id.")
   } else {
@@ -48,35 +34,20 @@ ki_timeseries_values <- function(ts_id, start_date, end_date, return_fields, dat
     ts_id_string <- paste(ts_id, collapse = ",")
   }
 
-  # Metadata to return
-  ts_meta <- paste(c(
-    "ts_unitname",
-    "ts_unitsymbol",
-    "ts_name",
-    "ts_id",
-    "stationparameter_name",
-    "station_name",
-    "station_id"
-  ),
-  collapse = ","
-  )
-
   api_query <- list(
     service = "kisters",
-    datasource = datasource,
+    datasource = 0,
     type = "queryServices",
     request = "getTimeseriesValues",
     format = "json",
+    timezone= "EST",
     kvp = "true",
     ts_id = ts_id_string,
     from = start_date,
     to = end_date,
     metadata = "true",
-    md_returnfields = ts_meta,
-    returnfields = paste(
-      return_fields,
-      collapse = ","
-    )
+    returnfields = "Timestamp,Value",
+    md_returnfields = "station_name,parametertype_name,stationparameter_name,ts_name,ts_id,ts_unitsymbol"
   )
 
   # Send request
@@ -124,11 +95,12 @@ ki_timeseries_values <- function(ts_id, start_date, end_date, return_fields, dat
         ts_data,
         Timestamp = lubridate::ymd_hms(ts_data$Timestamp),
         Value = as.numeric(ts_data$Value),
-        ts_name = json_content$ts_name[[ts_chunk]],
-        ts_id = json_content$ts_id[[ts_chunk]],
         Units = json_content$ts_unitsymbol[[ts_chunk]],
-        station_name = json_content$station_name[[ts_chunk]],
-        station_id = json_content$station_id[[ts_chunk]]
+        "Station Name" = json_content$station_name[[ts_chunk]],
+        "Parameter Name" = json_content$stationparameter_name[[ts_chunk]],
+        "Parameter Type" = json_content$parametertype_name[[ts_chunk]],
+        "Timeseries" = json_content$ts_name[[ts_chunk]],
+        "TS ID" = json_content$ts_id[[ts_chunk]],
       )
     }
   )

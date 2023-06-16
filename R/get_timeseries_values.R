@@ -2,6 +2,7 @@
 #'
 #' @export
 #' @description Asks the user for details to narrow down on the timeseries and then returns time series values for given time series id and date range.
+#' @author Daniel Post, MVCA, \email{dpost@@mvc.on.ca}
 #' @return A tibble with the columns returned by the script ki_timeseries_values.
 #' @examples
 #' \dontrun{
