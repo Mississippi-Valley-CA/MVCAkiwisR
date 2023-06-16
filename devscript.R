@@ -1,19 +1,19 @@
-## Document ####################################################################
+# Document #####################################################################
 devtools::document()
 usethis::use_tidy_description()
 
-## Clean up ####################################################################
+# Clean up #####################################################################
 
-## Clear environment
+# Clear environment
 rm(list = ls())
 
-## Clear plots
+# Clear plots
 dev.off()  # Only if there IS a plot
 
-## Clear console
+# Clear console
 cat("\014")  # ctrl+L
 
-## Testing #####################################################################
+# Testing ######################################################################
 test_values <- ki_timeseries_values(
 ts_id = "36587042",
 start_date = "2022-01-01",
