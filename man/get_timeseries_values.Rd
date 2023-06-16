@@ -18,3 +18,6 @@ get_timeseries_values()
 }
 
 }
+\author{
+Daniel Post, MVCA, \email{dpost@mvc.on.ca}
+}

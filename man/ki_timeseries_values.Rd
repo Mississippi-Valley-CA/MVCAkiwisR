@@ -4,13 +4,7 @@
 \alias{ki_timeseries_values}
 \title{Get values for time series id or list of time series ids.}
 \usage{
-ki_timeseries_values(
-  ts_id,
-  start_date,
-  end_date,
-  return_fields,
-  datasource = 0
-)
+ki_timeseries_values(ts_id, start_date, end_date)
 }
 \arguments{
 \item{ts_id}{Either: a single time series id or a vector of time series ids.
@@ -19,14 +13,9 @@ Time series ids can be found using the `ki_timeseries_list` function.}
 \item{start_date}{A date string formatted "YYYY-MM-DD". Defaults to yesterday.}
 
 \item{end_date}{A date string formatted "YYYY-MM-DD". Defaults to today.}
-
-\item{return_fields}{(Optional) Specific fields to return. Consult your KiWIS services documentation for available options.
-Should be a comma separate string or a vector.}
-
-\item{datasource}{(Optional) The data source to be used, defaults to 0.}
 }
 \value{
-A tibble with following columns by default: Timestamp, Value, ts_name, Units, station_name
+A tibble with following columns by default: Timestamp, Value, Units, station_name, stationparameter_name, ts_name, ts_id
 }
 \description{
 Returns time series values for given time series id and date range.
@@ -34,10 +23,13 @@ Returns time series values for given time series id and date range.
 \examples{
 \dontrun{
 ki_timeseries_values(
-  ts_id = "1125831042",
+  ts_id = "1395042",
   start_date = "2015-12-01",
   end_date = "2018-01-01"
 )
 }
 
+}
+\author{
+Ryan Whaley, \email{rdgwhaley@gmail.com}
 }
