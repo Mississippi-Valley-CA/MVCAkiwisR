@@ -12,7 +12,7 @@
 
 get_timeseries_values <- function() {
     # Load the CSV file #
-    input <- read.csv("https://waterdata.quinteconservation.ca/KiWIS/KiWIS?format=csv&datasource=0&timezone=EST&dateformat=yyyy-MM-dd%20HH:mm:ss&service=kisters&type=queryServices&metadata=false&request=getTimeseriesList&station_no=MVCA1*,MVCA2*,MVCA3*,MVCA4*,MVCA5*,MVCA6*,MVCA7*,MVCA8*,MVCA9*,WISKI-0321,02KF01*,02KF001,02KF005,02KF006,02KF020&returnfields=station_name,station_no,ts_id,ts_name,parametertype_name,stationparameter_name,coverage", header=TRUE, sep = ";", dec = ".")
+    input <- read.csv("https://waterdata.quinteconservation.ca/KiWIS/KiWIS?format=csv&datasource=0&timezone=EST&dateformat=yyyy-MM-dd%20HH:mm:ss&service=kisters&type=queryServices&metadata=false&request=getTimeseriesList&station_no=MVCA1*,MVCA2*,MVCA3*,MVCA4*,MVCA5*,MVCA6*,MVCA7*,MVCA8*,MVCA9*,WISKI-0321,02KF01*,02KF001,02KF005,02KF006,02KF020&station_name=Gauge*&returnfields=station_name,station_no,ts_id,ts_name,parametertype_name,stationparameter_name,coverage", header=TRUE, sep = ";", dec = ".")
 
     # Select the parameter #
     parameters <- sort(unique(input$parametertype_name))
