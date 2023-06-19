@@ -1,6 +1,6 @@
 # History files
-*.RHistory
-.RHistory
+*.Rhistory
+.Rhistory
 .Rapp.history
 
 # Session Data files
