@@ -1,4 +1,4 @@
-Package: mvcaWISKI
+Package: MVCAkiwisR
 Title: A Wrapper for Querying the MVCA's 'WISKI' Databases via the 'KiWIS'
     API
 Version: 1.0.0

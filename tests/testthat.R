@@ -1,4 +1,4 @@
 library(testthat)
-library(mvcaWISKI)
+library(MVCAkiwisR)
 
-test_check("mvcaWISKI")
+test_check("MVCAkiwisR")
