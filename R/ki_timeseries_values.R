@@ -92,7 +92,7 @@ ki_timeseries_values <- function(ts_id, start_date, end_date) {
 
       dplyr::mutate(
         ts_data,
-        Timestamp = as.POSIXct(ts_data$Timestamp, format="%Y-%m-%dT%H:%M"),
+        Timestamp = as.POSIXct(ts_data$Timestamp, format="%Y-%m-%dT%H:%M", tz='EST'),
         Value = as.numeric(ts_data$Value),
         Units = json_content$ts_unitsymbol[[ts_chunk]],
         'Station Name' = json_content$station_name[[ts_chunk]],
